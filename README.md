@@ -4,7 +4,7 @@ Same content as `../breexzed.github.io`, restyled to match the plain Freenet/11t
 
 | Path | What it is |
 |---|---|
-| `content/writing/*.md` | Posts, copied from `nodes/`. `parent:` makes a page a child (build-log stages). `date:` comes from git (first add); fix by hand if wrong. |
+| `content/writing/*.md` | Posts, copied from `nodes/`. `parent:` makes a page a child (build-log stages). `date:` = first publish (verified against the old repo's git history and the linked commits). |
 | `content/{index,about,portfolio}.md` | Home, whoami, portfolio. `{{latest_posts}}` / `{{writing_list}}` are filled at build time. |
 | `css/style.css` | ~2KB, inlined into every page at build time (no stylesheet request). Reference stylesheet + soft accent, Departure Mono headings, hung `##` permalinks, greentext ramp, portfolio spacing. |
 | `build.mjs` | ~120 lines: markdown -> `dist/**/index.html` with one template. |

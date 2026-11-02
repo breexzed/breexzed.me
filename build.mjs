@@ -113,7 +113,21 @@ ${body}
 `;
 }
 
+// Every same-site asset reference gets ?v=<content hash>, so assets can be cached for a
+// year (vercel.json) and a changed file still reaches visitors: new bytes -> new URL.
+const hashCache = new Map();
+function versionAssets(html) {
+  return html.replace(/(["'(])(\/(?:assets|fonts)\/[^"')?#\s]+|\/favicon\.png)(?=["')])/g, (m, pre, ref) => {
+    const file = path.join(OUT, ref);
+    if (!fs.existsSync(file)) { problems.push(`missing asset ${ref}`); return m; }
+    if (!hashCache.has(ref)) hashCache.set(ref, crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex').slice(0, 8));
+    return `${pre}${ref}?v=${hashCache.get(ref)}`;
+  });
+}
+const problems = [];
+
 function write(rel, html) {
+  html = versionAssets(html);
   const file = path.join(OUT, rel, 'index.html');
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, html);
@@ -186,10 +200,10 @@ for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.
 }
 
 // 404 for static hosts (GitHub Pages / Vercel both pick up 404.html)
-fs.writeFileSync(path.join(OUT, '404.html'), page({
+fs.writeFileSync(path.join(OUT, '404.html'), versionAssets(page({
   title: 'Not found',
   body: marked.parse('# 404\n\nYou found an unmade room. This page has not taken shape yet.\n\n[Return home](/)\n'),
-}));
+})));
 
 // --- discovery files: sitemap, robots, llms ------------------------------
 const pages = ['', 'writing', 'portfolio', 'about', ...posts.map((p) => `writing/${p.slug}`)];
@@ -224,7 +238,6 @@ fs.writeFileSync(path.join(OUT, 'llms-full.txt'), posts.map((p) =>
   `# ${p.data.title}\n\nURL: ${SITE.url}${url(p)}\nDate: ${p.date}\n\n${p.content.trim()}\n`).join('\n---\n\n'));
 
 // --- checks (fail the build rather than ship a broken link) ---------------
-const problems = [];
 const exists = (dest) => {
   const clean = dest.split('#')[0].replace(/^\//, '');
   return fs.existsSync(path.join(OUT, clean, 'index.html')) || fs.existsSync(path.join(OUT, clean));
