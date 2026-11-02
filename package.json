@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node build.mjs",
     "cards": "node scripts/cards.mjs",
+    "pages:codeberg": "bash scripts/codeberg-pages.sh",
     "serve": "node build.mjs && python3 -m http.server 8081 -d dist"
   },
   "dependencies": {

@@ -172,4 +172,4 @@ if err != nil {
 
 Hit it with `curl -v`, and got the full response back — headers and body. Stage 1's capability is real now, not just parsed on paper: receive, and answer.
 
-The implementation is recorded in the [Stage 01 commit](https://github.com/breexzed/http-server/commit/db52379f5f2ddc2c867d9bce915a0e97b01d697c).
+The implementation is recorded in the [Stage 01 commit](https://github.com/breexzed/httpd-go/commit/db52379f5f2ddc2c867d9bce915a0e97b01d697c).

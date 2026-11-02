@@ -1,6 +1,6 @@
-# breexzed.me 1.5 (experiment)
+# breexzed.me
 
-Same content as `../breexzed.github.io`, restyled to match the plain Freenet/11ty "Hegemonikon" site: black page, monospace, green links, 800px column, no JS.
+This is my home on the web: my writing, my build logs, and my portfolio. Every page starts as a markdown file in `content/`. A small build step turns those files into a site. Live at [breexzed.me](https://www.breexzed.me), portfolio at [breexzed.me/portfolio](https://www.breexzed.me/portfolio/).
 
 | Path | What it is |
 |---|---|
@@ -18,3 +18,14 @@ npm run cards    # re-render link-preview cards (needs Chromium); commit static/
 ```
 
 Preview cards come from `assets-src/og/card.html`: `story` for home/about, `compressed` for the portfolio, `field` with the post's title + `formula` for each post. Card URLs carry a content hash, so Discord/X fetch a new card after a re-render instead of serving their cached one. Run `npm run cards` after adding a post or changing a title.
+
+## Mirrors
+
+The same site, in case the domain or a host goes away. Canonical links always point to breexzed.me.
+
+| Where | How it updates |
+|---|---|
+| [breexzed.github.io/breexzed.me](https://breexzed.github.io/breexzed.me/) | Automatic on push to `main` (`.github/workflows/pages.yml`). |
+| [breexzed.codeberg.page/breexzed.me](https://breexzed.codeberg.page/breexzed.me/) | `npm run pages:codeberg` from this machine (builds, force-pushes `dist/` to the Codeberg `pages` branch). |
+
+Source is pushed to both GitHub and Codeberg by a plain `git push` (origin has two push URLs).
