@@ -118,7 +118,7 @@ ${body}
             <hr>
             <p>Signed: <strong>${SITE.name}</strong></p>
             <p>Static HTML, built from markdown. No tracking, no client-side JavaScript.</p>
-            <p><small>Source: <code>github.com/breexzed/breexzed.github.io</code></small></p>
+            <p><small>Source: <a href="https://github.com/breexzed/breexzed.me">github.com/breexzed/breexzed.me</a></small></p>
         </footer>
     </div>
 </body>
