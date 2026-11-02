@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+  Source for the 1200x630 link-preview image (og:image). Link previewers (Discord, X,
+  Slack) don't render SVG or web fonts, so this page is screenshotted to a PNG.
+  Rendered by `npm run cards` (scripts/cards.mjs). Query params:
+    ?v=story | compressed | field
+    field also takes &title=…&formula=…&path=…  -> per-post card (no portrait)
+
+  Design tokens = the site's: bg #0a0a0a, text #e0e0e0, accent #4fd66b, Departure Mono
+  on an 11px grid (22/33/66/88), and the greentext ramp (dim -> bright -> accent).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@font-face{font-family:'Departure Mono';src:url('../DepartureMono-Regular.woff2') format('woff2')}
+:root{--bg:#0a0a0a;--text:#e0e0e0;--accent:#4fd66b;--line:#222}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Departure Mono',monospace;-webkit-font-smoothing:antialiased;position:relative}
+.v{display:none;position:absolute;inset:0}
+body.story .story, body.field .field, body.compressed .compressed{display:flex}
+img{image-rendering:pixelated;border:1px solid var(--line);flex-shrink:0}
+.url{font-size:22px;letter-spacing:2px;color:var(--text);opacity:.4}
+.name{font-size:66px;line-height:1}
+.payoff{color:var(--accent)}
+
+/* A — story: the full greentext as a ramp, landing on the accent line */
+.story{align-items:center;gap:44px;padding:0 66px}
+.story img{width:352px;height:352px}
+.story .t{display:grid;gap:22px}
+.story .ramp{display:grid;gap:4px;font-size:22px;line-height:1.3;white-space:nowrap}
+.story .ramp span:nth-child(1){opacity:.12}.story .ramp span:nth-child(2){opacity:.18}
+.story .ramp span:nth-child(3){opacity:.25}.story .ramp span:nth-child(4){opacity:.33}
+.story .ramp span:nth-child(5){opacity:.42}.story .ramp span:nth-child(6){opacity:.52}
+.story .ramp span:nth-child(7){opacity:.65}
+.story .ramp .payoff{font-size:33px;opacity:1;margin-top:6px}
+
+/* B — field: the story repeated as background texture, ramping top -> bottom */
+.field{align-items:center;gap:66px;padding:0 88px}
+.field .bg{position:absolute;inset:0;padding:22px 44px;font-size:22px;line-height:33px;white-space:nowrap;overflow:hidden;
+  color:var(--accent);-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.03),rgba(0,0,0,.22));mask-image:linear-gradient(to bottom,rgba(0,0,0,.03),rgba(0,0,0,.22))}
+.field img{width:330px;height:330px;position:relative;background:var(--bg)}
+.field .t{position:relative;display:grid;gap:22px;background:var(--bg);padding:33px;margin-left:-33px;box-shadow:0 0 0 1px var(--line)}
+.field .name{font-size:88px}
+.field .tag{font-size:33px;line-height:1.3;max-width:560px}
+.field .payoff{font-size:33px}
+/* field, per post: the texture is the frame, the post title is the content */
+.field.post img{display:none}
+.field.post .t{margin-left:0;max-width:1000px;gap:22px;padding:44px}
+.field.post .kicker{font-size:22px;opacity:.5}
+.field.post .name{font-size:66px;line-height:1.15}
+.field.post .name.long{font-size:44px;line-height:1.25}
+
+/* C — compressed: the ramp collapsed into a row of chevrons that reads at thumbnail size */
+.compressed{flex-direction:column;justify-content:center;padding:0 110px;gap:33px}
+.compressed .head{display:flex;align-items:center;gap:66px}
+.compressed img{width:220px;height:220px}
+.compressed .name{font-size:88px}
+.compressed .tag{font-size:33px;line-height:1.3;opacity:.85;margin-top:11px;white-space:nowrap}
+.compressed .row{font-size:33px;display:flex;gap:16px;align-items:baseline;white-space:nowrap}
+.compressed .row span{color:var(--accent)}
+.compressed .row span:nth-child(1){opacity:.10}.compressed .row span:nth-child(2){opacity:.18}
+.compressed .row span:nth-child(3){opacity:.28}.compressed .row span:nth-child(4){opacity:.40}
+.compressed .row span:nth-child(5){opacity:.55}.compressed .row span:nth-child(6){opacity:.72}
+.compressed .row span:nth-child(7){opacity:.88}
+.compressed .row .payoff{opacity:1;margin-left:8px}
+</style>
+</head>
+<body>
+
+<section class="v story">
+  <img src="../portrait.svg" alt="">
+  <div class="t">
+    <div class="name">Breexzed</div>
+    <div class="ramp">
+      <span>&gt; kid from Africa big tech dreams</span>
+      <span>&gt; internet friend sent pc to begin with</span>
+      <span>&gt; bricked machine trying to run Linux</span>
+      <span>&gt; Linux ran LFG!!!</span>
+      <span>&gt; got fascinated with the machine</span>
+      <span>&gt; been tinkering ever since</span>
+      <span>&gt; mfw he realized could make a living with this</span>
+      <span class="payoff">&gt; infrastructure engineering</span>
+    </div>
+    <div class="url">breexzed.me</div>
+  </div>
+</section>
+
+<section class="v field">
+  <div class="bg" id="bg"></div>
+  <img src="../portrait.svg" alt="">
+  <div class="t">
+    <div class="kicker" hidden>breexzed / writing</div>
+    <div class="name">Breexzed</div>
+    <div class="tag">Building Linux infrastructure in Go, from the kernel up.</div>
+    <div class="payoff">&gt; infrastructure engineering</div>
+    <div class="url">breexzed.me</div>
+  </div>
+</section>
+
+<section class="v compressed">
+  <div class="head">
+    <img src="../portrait.svg" alt="">
+    <div>
+      <div class="name">Breexzed</div>
+      <div class="tag">Building Linux infrastructure<br>in Go, from the kernel up.</div>
+    </div>
+  </div>
+  <div class="row"><span>&gt;</span><span>&gt;</span><span>&gt;</span><span>&gt;</span><span>&gt;</span><span>&gt;</span><span>&gt;</span><span class="payoff">infrastructure engineering</span></div>
+</section>
+
+<script>
+  // Render-time only (this file is never shipped).
+  const q = new URLSearchParams(location.search);
+  const v = q.get('v') || location.hash.slice(1) || 'story';
+  document.body.className = v;
+  if (v === 'field' && q.get('title')) {
+    const f = document.querySelector('section.field'), t = f.querySelector('.t');
+    f.classList.add('post');
+    t.querySelector('.kicker').hidden = false;
+    const name = t.querySelector('.name');
+    name.textContent = q.get('title');
+    if (q.get('title').length > 28) name.classList.add('long');
+    t.querySelector('.tag').remove();
+    t.querySelector('.payoff').textContent = '> ' + (q.get('formula') || 'infrastructure engineering');
+    t.querySelector('.url').textContent = 'breexzed.me' + (q.get('path') || '');
+  }
+  const lines = ['> kid from Africa big tech dreams','> internet friend sent pc to begin with','> bricked machine trying to run Linux','> Linux ran LFG!!!','> got fascinated with the machine','> been tinkering ever since','> mfw he realized could make a living with this','> infrastructure engineering'];
+  let s = ''; for (let i = 0; i < 18; i++) s += lines.slice(i % 8).concat(lines.slice(0, i % 8)).join('   ') + '\n';
+  document.getElementById('bg').textContent = s;
+  document.getElementById('bg').style.whiteSpace = 'pre';
+</script>
+</body>
+</html>

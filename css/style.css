@@ -1,0 +1,54 @@
+/* Inlined into every page at build time (no extra request). Keep it small.
+   Base: the Freenet-hosted Hegemonikon site's stylesheet (first block). */
+:root {
+    --bg: #0a0a0a;
+    --text: #e0e0e0;
+    --accent: #4fd66b; /* reference used #00ff00; softened for long reading */
+    --code-bg: #1a1a1a;
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: monospace;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    line-height: 1.6;
+}
+a { color: var(--accent); }
+hr { border-color: var(--accent); }
+pre { background: var(--code-bg); padding: 1rem; overflow-x: auto; }
+
+img { max-width: 100%; height: auto; display: block; margin: 1rem 0; }
+table { display: block; overflow-x: auto; }
+code { overflow-wrap: anywhere; }
+pre code { overflow-wrap: normal; }
+@media (max-width: 600px) { body { padding: 1rem; } }
+
+/* Display type: Departure Mono (subset), 11px grid, single weight. Prose stays system mono. */
+@font-face { font-family: 'Departure Mono'; src: url('/fonts/departure-mono/DepartureMono-Regular.woff2') format('woff2'); font-display: swap; }
+h1, h2 { font-family: 'Departure Mono', monospace; font-weight: 400; }
+header h1 { font-size: 44px; line-height: 1.1; }
+main h1 { font-size: 33px; line-height: 1.2; }
+h2 { font-size: 22px; position: relative; }
+h3 { font-size: 1.05em; }
+h3 em { font-weight: normal; color: #888; }
+
+/* "##" permalink, hung in the left margin so heading text aligns with prose. */
+.hx { position: absolute; right: 100%; padding-right: .6ch; opacity: .35; text-decoration: none; }
+.hx:hover, .hx:focus { opacity: 1; }
+@media (max-width: 900px) { .hx { position: static; padding: 0; } }
+
+/* Portfolio: air + hairline between project entries. */
+.portfolio h3 { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #222; }
+.portfolio h2 + h3 { border-top: 0; padding-top: 0; margin-top: 1rem; }
+.portrait { width: 132px; height: 132px; image-rendering: pixelated; border: 1px solid #222; }
+
+/* Greentext ramp: brightens line by line, lands on the last. */
+.greentext { margin: 1rem 0; }
+.greentext span { display: block; }
+.greentext span:nth-child(1) { opacity: .40; } .greentext span:nth-child(2) { opacity: .48; }
+.greentext span:nth-child(3) { opacity: .56; } .greentext span:nth-child(4) { opacity: .64; }
+.greentext span:nth-child(5) { opacity: .72; } .greentext span:nth-child(6) { opacity: .80; }
+.greentext span:nth-child(7) { opacity: .90; }
+.greentext span:last-child { opacity: 1; color: var(--accent); font-weight: bold; }
