@@ -14,9 +14,18 @@ const SITE = {
   name: 'Breexzed',
   subtitle: 'Infrastructure engineering · Linux, Go, from the kernel up',
   tagline: 'Building Linux infrastructure in Go, from the kernel up.',
-  url: 'https://www.breexzed.me', // absolute URLs are required for link-preview cards
+  // Primary home. Canonical links always point here, so mirrors don't compete in search.
+  canonical: 'https://www.breexzed.me',
+  // Where *this* build is served. Absolute URLs (cards, sitemap, feeds) use it, so a mirror
+  // (GitHub Pages) still has working previews if the domain is down. Set by the Pages workflow.
+  url: (process.env.SITE_URL || 'https://www.breexzed.me').replace(/\/+$/, ''),
   card: '/assets/og/home.png',    // default card; per-page cards rendered by `npm run cards`
 };
+
+// Sub-path the site is served under: '' on breexzed.me, '/<repo>' on a GitHub Pages project site.
+// Pages and content are written with root-relative links ("/writing/"); withBase() prefixes them.
+const BASE = (process.env.BASE || '').replace(/\/+$/, '');
+const withBase = (html) => BASE ? html.replace(/(href="|src="|url\(')\/(?!\/)/g, `$1${BASE}/`) : html;
 
 // First real paragraph of a markdown body, flattened to ~160 chars, for preview descriptions.
 const summarize = (md) => {
@@ -30,7 +39,10 @@ const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;
 marked.use({
   renderer: {
     heading(text, level, raw) {
-      const id = slugify(raw);
+      // `### Title {#id}` pins a stable id (used for links into the portfolio).
+      const pinned = text.match(/\s*\{#([a-z0-9-]+)\}\s*$/);
+      if (pinned) text = text.slice(0, pinned.index);
+      const id = pinned ? pinned[1] : slugify(raw);
       const mark = level === 2 ? `<a class="hx" href="#${id}" aria-label="Link to this section"><span>#</span><span>#</span></a> ` : '';
       return `<h${level} id="${id}">${mark}${text}</h${level}>\n`;
     },
@@ -67,7 +79,8 @@ function page({ title, description, body, cls = '', rel = '', type = 'website', 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${esc(title)} | ${SITE.name}</title>
     <meta name="description" content="${desc}">
-    <link rel="canonical" href="${pageUrl}">
+    <link rel="canonical" href="${SITE.canonical}/${rel ? rel + '/' : ''}">
+    <link rel="me" href="https://mastodon.social/@breexzed">
     <meta name="theme-color" content="#4fd66b">
     <meta property="og:type" content="${type}">
     <meta property="og:site_name" content="${SITE.name}">
@@ -127,7 +140,7 @@ function versionAssets(html) {
 const problems = [];
 
 function write(rel, html) {
-  html = versionAssets(html);
+  html = withBase(versionAssets(html));
   const file = path.join(OUT, rel, 'index.html');
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, html);
@@ -189,8 +202,12 @@ write('writing', page({
 }));
 
 // --- standalone pages -----------------------------------------------------
+// Projects: listed once, in portfolio.md frontmatter; home links into the portfolio entry.
+const portfolio = matter(fs.readFileSync(path.join(CONTENT, 'portfolio.md'), 'utf8')).data;
+const projects = portfolio.projects || [];
 const vars = {
   latest_posts: listMd(topLevel.slice(0, 5)),
+  projects_list: projects.map((x) => `- **[${x.name}](/portfolio/#${x.id})** — ${x.summary}`).join('\n\n'),
   writing_list: topLevel.map((p) => `- [${p.data.title}](${url(p)})`).join('\n'),
 };
 for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.md', 'portfolio']]) {
@@ -200,10 +217,10 @@ for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.
 }
 
 // 404 for static hosts (GitHub Pages / Vercel both pick up 404.html)
-fs.writeFileSync(path.join(OUT, '404.html'), versionAssets(page({
+fs.writeFileSync(path.join(OUT, '404.html'), withBase(versionAssets(page({
   title: 'Not found',
   body: marked.parse('# 404\n\nYou found an unmade room. This page has not taken shape yet.\n\n[Return home](/)\n'),
-})));
+}))));
 
 // --- discovery files: sitemap, robots, llms ------------------------------
 const pages = ['', 'writing', 'portfolio', 'about', ...posts.map((p) => `writing/${p.slug}`)];
@@ -248,6 +265,8 @@ for (const p of posts) {
   if (p.id && redirects.get(`/node/${p.id}`) !== url(p)) problems.push(`vercel.json: /node/${p.id} must redirect to ${url(p)} (old link)`);
 }
 for (const [src, dest] of redirects) if (!exists(dest)) problems.push(`vercel.json: ${src} -> ${dest}, which is not in dist/`);
+const builtPortfolio = fs.readFileSync(path.join(OUT, 'portfolio', 'index.html'), 'utf8');
+for (const x of projects) if (!builtPortfolio.includes(`id="${x.id}"`)) problems.push(`portfolio.md: project "${x.name}" links to #${x.id}, but no heading has {#${x.id}}`);
 if (problems.length) { console.error('build check failed:\n  ' + problems.join('\n  ')); process.exit(1); }
 
 console.log(`built ${posts.length} writing pages + archive + home/about/portfolio/404 + sitemap/robots/llms -> ${path.relative(process.cwd(), OUT) || OUT}; ${redirects.size} redirects checked`);

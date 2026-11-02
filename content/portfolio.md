@@ -1,6 +1,17 @@
 ---
 title: Portfolio
 description: Building Linux infrastructure in Go, from the kernel up.
+# Shown on the home page, in this order. `id` must match a `{#id}` on a ### heading below.
+projects:
+  - id: pulsed
+    name: Pulsed
+    summary: A Linux process monitor in Go, built from /proc up.
+  - id: httpd-go
+    name: httpd-go
+    summary: A small HTTP server in Go. Built from raw TCP.
+  - id: wtp
+    name: wtp (Willingness To Pay)
+    summary: Find out whether people would pay, from interview and YouTube transcripts.
 ---
 
 # Breexzed
@@ -26,7 +37,7 @@ Interested in: Linux, eBPF, Go, containers, cloud, kernel-native infrastructure.
 
 ## Now
 
-### Pulsed — *Oct 2026 – present*
+### Pulsed — *Oct 2026 – present* {#pulsed}
 
 `Go · Linux /proc · standard library only`
 
@@ -40,7 +51,7 @@ A Linux process monitor in Go, built from /proc up.
 
 ## Selected work
 
-### httpd-go — *Sep 2026*
+### httpd-go — *Sep 2026* {#httpd-go}
 
 `Go · TCP · HTTP/1.1 (RFC 9112)`
 
@@ -53,7 +64,7 @@ A small HTTP server in Go. Built from raw TCP.
 
 [code](https://github.com/breexzed/httpd-go) · [build log](/writing/http-server-from-scratch/)
 
-### wtp (Willingness To Pay) — *Apr 2026 – Oct 2026*
+### wtp (Willingness To Pay) — *Apr 2026 – Oct 2026* {#wtp}
 
 `Python · LLM APIs · GitHub Actions`
 
