@@ -191,4 +191,50 @@ fs.writeFileSync(path.join(OUT, '404.html'), page({
   body: marked.parse('# 404\n\nYou found an unmade room. This page has not taken shape yet.\n\n[Return home](/)\n'),
 }));
 
-console.log(`built ${posts.length} writing pages + archive + home/about/portfolio/404 -> ${path.relative(process.cwd(), OUT) || OUT}`);
+// --- discovery files: sitemap, robots, llms ------------------------------
+const pages = ['', 'writing', 'portfolio', 'about', ...posts.map((p) => `writing/${p.slug}`)];
+const lastmod = (rel) => {
+  const p = posts.find((x) => `writing/${x.slug}` === rel);
+  return p?.date || topLevel.map((x) => x.date).sort().at(-1);
+};
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages.map((rel) => `  <url><loc>${SITE.url}/${rel ? rel + '/' : ''}</loc><lastmod>${lastmod(rel)}</lastmod></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
+
+// llms.txt (llmstxt.org shape): what this is, where things are. llms-full.txt: every post's text.
+const postLine = (p) => `- [${p.data.title}](${SITE.url}${url(p)}): ${p.data.excerpt ? summarize(p.data.excerpt) : summarize(p.content)}`;
+fs.writeFileSync(path.join(OUT, 'llms.txt'), `# ${SITE.name}
+
+> ${SITE.tagline} Personal site: writing, build logs, and a portfolio. Static HTML, one page per post.
+
+## Writing
+
+${topLevel.flatMap((p) => [postLine(p), ...childrenOf(p).map((k) => '  ' + postLine(k))]).join('\n')}
+
+## Pages
+
+- [Portfolio](${SITE.url}/portfolio/): current and selected work, skills, links
+- [About](${SITE.url}/about/): whoami
+- [Full text of all posts](${SITE.url}/llms-full.txt)
+`);
+fs.writeFileSync(path.join(OUT, 'llms-full.txt'), posts.map((p) =>
+  `# ${p.data.title}\n\nURL: ${SITE.url}${url(p)}\nDate: ${p.date}\n\n${p.content.trim()}\n`).join('\n---\n\n'));
+
+// --- checks (fail the build rather than ship a broken link) ---------------
+const problems = [];
+const exists = (dest) => {
+  const clean = dest.split('#')[0].replace(/^\//, '');
+  return fs.existsSync(path.join(OUT, clean, 'index.html')) || fs.existsSync(path.join(OUT, clean));
+};
+const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+const redirects = new Map(vercel.redirects.map((r) => [r.source, r.destination]));
+for (const p of posts) {
+  if (p.id && redirects.get(`/node/${p.id}`) !== url(p)) problems.push(`vercel.json: /node/${p.id} must redirect to ${url(p)} (old link)`);
+}
+for (const [src, dest] of redirects) if (!exists(dest)) problems.push(`vercel.json: ${src} -> ${dest}, which is not in dist/`);
+if (problems.length) { console.error('build check failed:\n  ' + problems.join('\n  ')); process.exit(1); }
+
+console.log(`built ${posts.length} writing pages + archive + home/about/portfolio/404 + sitemap/robots/llms -> ${path.relative(process.cwd(), OUT) || OUT}; ${redirects.size} redirects checked`);
