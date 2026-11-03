@@ -262,9 +262,13 @@ const exists = (dest) => {
 const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
 const redirects = new Map(vercel.redirects.map((r) => [r.source, r.destination]));
 for (const p of posts) {
-  if (p.id && redirects.get(`/node/${p.id}`) !== url(p)) problems.push(`vercel.json: /node/${p.id} must redirect to ${url(p)} (old link)`);
+  // trailingSlash:true means Vercel matches redirect sources after adding the slash.
+  if (p.id && redirects.get(`/node/${p.id}/`) !== url(p)) problems.push(`vercel.json: /node/${p.id}/ must redirect to ${url(p)} (old link)`);
 }
-for (const [src, dest] of redirects) if (!exists(dest)) problems.push(`vercel.json: ${src} -> ${dest}, which is not in dist/`);
+for (const [src, dest] of redirects) {
+  if (!src.endsWith('/') && !/\.[a-z]+$/.test(src)) problems.push(`vercel.json: source ${src} needs a trailing slash (trailingSlash:true)`);
+  if (!exists(dest)) problems.push(`vercel.json: ${src} -> ${dest}, which is not in dist/`);
+}
 const builtPortfolio = fs.readFileSync(path.join(OUT, 'portfolio', 'index.html'), 'utf8');
 for (const x of projects) if (!builtPortfolio.includes(`id="${x.id}"`)) problems.push(`portfolio.md: project "${x.name}" links to #${x.id}, but no heading has {#${x.id}}`);
 if (problems.length) { console.error('build check failed:\n  ' + problems.join('\n  ')); process.exit(1); }
