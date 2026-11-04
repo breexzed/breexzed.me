@@ -2,7 +2,7 @@
    Base: the Freenet-hosted Hegemonikon site's stylesheet (first block). */
 :root {
     --bg: #0a0a0a;
-    --text: #e0e0e0;
+    --text: #cfcfcf; /* dimmed from #e0e0e0 to reduce halation on near-black */
     --accent: #4fd66b; /* reference used #00ff00; softened for long reading */
     --code-bg: #1a1a1a;
 }
