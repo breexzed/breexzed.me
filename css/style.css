@@ -9,12 +9,20 @@
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: monospace;
-    max-width: 800px;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 18px;
+    max-width: 60ch;
     margin: 0 auto;
     padding: 2rem;
     line-height: 1.6;
 }
+code, pre, kbd, samp { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .9em; }
+
+/* Body: IBM Plex Sans (Latin-1 subset), code: IBM Plex Mono. Self-hosted, OFL. */
+@font-face { font-family: 'IBM Plex Sans'; src: url('/fonts/ibm-plex/IBMPlexSans-Regular-Latin1.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('/fonts/ibm-plex/IBMPlexSans-Italic-Latin1.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('/fonts/ibm-plex/IBMPlexSans-Bold-Latin1.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('/fonts/ibm-plex/IBMPlexMono-Regular-Latin1.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 a { color: var(--accent); }
 hr { border-color: var(--accent); }
 pre { background: var(--code-bg); padding: 1rem; overflow-x: auto; }
@@ -25,7 +33,7 @@ code { overflow-wrap: anywhere; }
 pre code { overflow-wrap: normal; }
 @media (max-width: 600px) { body { padding: 1rem; } }
 
-/* Display type: Departure Mono (subset), 11px grid, single weight. Prose stays system mono. */
+/* Display type: Departure Mono (subset), 11px grid, single weight. Prose is IBM Plex Sans (above). */
 @font-face { font-family: 'Departure Mono'; src: url('/fonts/departure-mono/DepartureMono-Regular.woff2') format('woff2'); font-display: swap; }
 h1, h2 { font-family: 'Departure Mono', monospace; font-weight: 400; }
 header h1 { font-size: 44px; line-height: 1.1; }

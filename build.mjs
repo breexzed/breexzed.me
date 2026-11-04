@@ -95,6 +95,7 @@ function page({ title, description, body, cls = '', rel = '', type = 'website', 
     <meta name="twitter:site" content="@breexzed_">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preload" href="/fonts/departure-mono/DepartureMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ibm-plex/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin>
     <style>${CSS}</style>
 </head>
 <body${cls ? ` class="${cls}"` : ''}>
