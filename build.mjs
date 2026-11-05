@@ -211,7 +211,7 @@ const vars = {
   projects_list: projects.map((x) => `- **[${x.name}](/portfolio/#${x.id})** — ${x.summary}`).join('\n\n'),
   writing_list: topLevel.map((p) => `- [${p.data.title}](${url(p)})`).join('\n'),
 };
-for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.md', 'portfolio']]) {
+for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.md', 'portfolio'], ['setup.md', 'setup']]) {
   const { data, content } = matter(fs.readFileSync(path.join(CONTENT, file), 'utf8'));
   const md = content.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? `{{${k}}}`);
   write(rel, page({ title: data.title, description: data.description, body: marked.parse(md), cls: rel || 'home', rel, card: rel === 'portfolio' ? '/assets/og/portfolio.png' : SITE.card }));
@@ -224,7 +224,7 @@ fs.writeFileSync(path.join(OUT, '404.html'), withBase(versionAssets(page({
 }))));
 
 // --- discovery files: sitemap, robots, llms ------------------------------
-const pages = ['', 'writing', 'portfolio', 'about', ...posts.map((p) => `writing/${p.slug}`)];
+const pages = ['', 'writing', 'portfolio', 'about', 'setup', ...posts.map((p) => `writing/${p.slug}`)];
 const lastmod = (rel) => {
   const p = posts.find((x) => `writing/${x.slug}` === rel);
   return p?.date || topLevel.map((x) => x.date).sort().at(-1);
