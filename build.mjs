@@ -13,7 +13,7 @@ const OUT = path.join(ROOT, 'dist');
 const SITE = {
   name: 'Breexzed',
   subtitle: 'Infrastructure engineering · Linux, Go, from the kernel up',
-  tagline: 'Building Linux infrastructure in Go, from the kernel up.',
+  tagline: 'Infrastructure engineering · Linux, Go, from the kernel up.',
   // Primary home. Canonical links always point here, so mirrors don't compete in search.
   canonical: 'https://www.breexzed.me',
   // Where *this* build is served. Absolute URLs (cards, sitemap, feeds) use it, so a mirror
@@ -118,7 +118,6 @@ ${body}
         <footer>
             <hr>
             <p>Signed: <strong>${SITE.name}</strong></p>
-            <p>Static HTML, built from markdown. No tracking, no client-side JavaScript.</p>
             <p><small>Source: <a href="https://github.com/breexzed/breexzed.me">github.com/breexzed/breexzed.me</a></small></p>
         </footer>
     </div>

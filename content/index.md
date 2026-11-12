@@ -2,25 +2,29 @@
 title: Home
 ---
 
-# Welcome to the estate
+# Welcome To My Estate
 
-Building Linux infrastructure in Go, from the kernel up. I've been tracing systems, signals and building what i find useful. I write about what i build, and what they taught me.
+Holding ancient gold in a world obsessed with glitter. I don't know how to do it yet, but I will do it. Everything I learn on the way, written down here.
 
-A home for traces, projects, learning, and the slow arrangement of understanding.
+## What I'm Up To Now
 
-## Latest Posts
+- Currently on a [3-month open source software grant](/portfolio/#notable-things-i-ve-done) through the Open Research Institute
 
-{{latest_posts}}
+- Home labbing and learning Linux internals
 
-[View all posts →](/writing/)
-
-## Projects
+## Projects I've Worked On
 
 {{projects_list}}
 
 [Full portfolio →](/portfolio/)
 
-## Contact
+## Some of My Latest Posts
+
+{{latest_posts}}
+
+[View all posts →](/writing/)
+
+## Where You Can Reach Me
 
 | Platform | Address |
 | --- | --- |
@@ -29,7 +33,3 @@ A home for traces, projects, learning, and the slow arrangement of understanding
 | 𝕏 X | [@breexzed_](https://x.com/breexzed_) |
 
 <p class="elsewhere">elsewhere: <a rel="me" href="https://mastodon.social/@breexzed">Mastodon</a> · <a rel="me" href="https://codeberg.org/Breexzed">Codeberg</a></p>
-
----
-
-*Breexzed / Infrastructure engineering*

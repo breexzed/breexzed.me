@@ -6,8 +6,15 @@ title: About
 
 <img class="portrait" src="/assets/portrait.webp" alt="BREEXZED portrait" width="132" height="132">
 
-Building Linux infrastructure in Go, from the kernel up.<br>
-I write about what i build, and what they taught me.
+**Breexzed** is a self-taught infrastructure engineer building Linux systems in Go, from the kernel up. It started with a PC sent by an internet friend, bricked on the first attempt to install Linux and brought back when Linux finally ran. The fascination with the machine never left.
+
+The method is stubborn but simple: interfaces & observability. Before building on a system, Breexzed asks two questions of it: "How does this interface with that?" and "How do I observe this?" Mapping what goes in, what comes out, and how it fails turns a black box into something that can be rebuilt by hand. Watching it run settles what's actually true, with every claim checked against an outside judge: a test, a measurement, or the kernel's own counters. The work shows it: an HTTP server built up from raw TCP ([httpd-go](https://github.com/breexzed/httpd-go)), a process monitor read straight from `/proc` ([Pulsed](https://github.com/breexzed/pulsed)), and a tool that pulls a systemd service's memory and task counters from its cgroup ([svcstat](https://github.com/breexzed/svcstat)).
+
+Breexzed is currently on a [3-month open source software grant](/portfolio/#notable-things-i-ve-done) through the Open Research Institute. Everything learned along the way is written down here.
+
+Interested in: Linux, eBPF, Go, containers, cloud, kernel-native infrastructure, memetics, decentralized and resilient communication, federated knowledge and collective intelligence, AI and human–machine coordination, software archaeology, electronics, writing, and the philosophy of self-knowledge.
+
+---
 
 Trapped within constraints that suffocate being and becoming, i untie myself from the shackles bound on me, through the dispersion of my soul and the traces i leave of having existed, homage to the one in me who knows nothing, but wants to learn.
 
@@ -30,11 +37,3 @@ My little philosophy on this:
 > Seed of becoming planted in self.
 >
 > — *Breexzed Daffodils*
-
-*I'll keep trying to find something to write about who I am, but for the time being, rejoice with me for who I'm becoming.*
-
-## Sections
-
-- **Corpus** — Projects, concepts, and articulations. A filtered index of the work and ideas that make up the estate. → [Writing](/writing/)
-- **Signal** — Here, I document the signals I encounter in the world as they express themselves within my field of resonance. I note them explicitly, along with the traces of how I encountered them. I explore their diverse natures to learn from them and to make predictions inferred from the lenses they share. Signals may include, but are not limited to, a person, a niche, or a group of people within a culture or subcultural organism. *(nothing published yet)*
-- **Projects** — This is the lab where I build systems out of the estate's ontology-driven corpus. Projects are also informed by signals and by the trails that led to them. Like every lab, this one is an ongoing work in progress. → [Portfolio](/portfolio/)

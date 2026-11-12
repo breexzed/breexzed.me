@@ -1,11 +1,14 @@
 ---
 title: Portfolio
-description: Building Linux infrastructure in Go, from the kernel up.
+description: Infrastructure engineering · Linux, Go, from the kernel up.
 # Shown on the home page, in this order. `id` must match a `{#id}` on a ### heading below.
 projects:
   - id: pulsed
     name: Pulsed
     summary: A Linux process monitor in Go, built from /proc up.
+  - id: svcstat
+    name: svcstat
+    summary: Memory and task counters for a systemd service, read from its cgroup.
   - id: httpd-go
     name: httpd-go
     summary: A small HTTP server in Go. Built from raw TCP.
@@ -13,10 +16,6 @@ projects:
     name: wtp (Willingness To Pay)
     summary: Find out whether people would pay, from interview and YouTube transcripts.
 ---
-
-# Breexzed
-
-Infrastructure engineering. Building Linux infrastructure in Go, from the kernel up.
 
 <img class="portrait" src="/assets/portrait.webp" alt="Breexzed portrait" width="132" height="132">
 
@@ -33,9 +32,13 @@ Infrastructure engineering. Building Linux infrastructure in Go, from the kernel
 <span>&gt; infrastructure engineering</span>
 </div>
 
-Interested in: Linux, eBPF, Go, containers, cloud, kernel-native infrastructure.
+[More about me, and what I'm interested in →](/about/)
 
-## Now
+## Notable Things I've Done
+
+- **Nov 2026:** Received a 3-month open source software grant, funded by [Shane Andersen](https://shaneandersen.com/) through the [Open Research Institute](https://openresearchinstitute.org/), to build a federated knowledge system on Freenet for ORI.
+
+## Thing I'm Working On Now
 
 ### Pulsed — *Oct 2026 – present* {#pulsed}
 
@@ -50,6 +53,18 @@ A Linux process monitor in Go, built from /proc up.
 [code](https://github.com/breexzed/pulsed)
 
 ## Selected work
+
+### svcstat — *Oct 2026 – Nov 2026* {#svcstat}
+
+`Go · systemd · cgroup v2 · standard library only`
+
+Memory and task counters for a systemd service, read from its cgroup.
+
+- Asks systemd for the unit's state and cgroup path, and refuses to read counters for a unit that isn't loaded and running: a stopped unit also has an empty cgroup path.
+- Reads `memory.current`, `memory.peak` and `pids.current` from `/sys/fs/cgroup`, and checks every number against `systemctl show`.
+- Never prints 0 on a failed read. No result is better than a wrong one.
+
+[code](https://github.com/breexzed/svcstat)
 
 ### httpd-go — *Sep 2026* {#httpd-go}
 
@@ -77,7 +92,7 @@ Find out whether people would pay, from interview and YouTube transcripts. Built
 
 ## Skills
 
-Go / Python / Linux (/proc) / KVM, QEMU, libvirt / Git / GitHub Actions / Docker / Bash
+Go / Python / Linux / KVM, QEMU, libvirt / LXD, MAAS / Git / GitHub Actions / Docker / Bash
 
 ## Writing
 
@@ -89,4 +104,4 @@ Go / Python / Linux (/proc) / KVM, QEMU, libvirt / Git / GitHub Actions / Docker
 
 ---
 
-*Updated Oct 2026.*
+*Updated Nov 2026.*
