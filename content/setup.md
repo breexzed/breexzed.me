@@ -5,7 +5,7 @@ description: Fedora 44 with a Hyprland desktop built from parts of Omarchy, and 
 
 # Linux setup
 
-Fedora 44 with a Hyprland desktop built from parts of [Omarchy](https://github.com/omacom/omarchy). Omarchy targets Arch, so on Fedora some of its pieces break. This is the running log of every fix, newest at the bottom.
+Fedora 44 wearing parts of [Omarchy](https://github.com/omacom/omarchy), a desktop built for Arch. This is the log of everything that broke and how I fixed it, newest at the bottom.
 
 ## Changes made to this copy of Omarchy 4.0.4 (copied from the Try Omarchy VM, 2026-10-18)
 

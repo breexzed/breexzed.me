@@ -47,10 +47,10 @@ h3 em { font-weight: normal; color: #888; }
 .hx:hover, .hx:focus { opacity: 1; }
 @media (max-width: 900px) { .hx { position: static; padding: 0; } }
 
-/* Portfolio: air + hairline between project entries. */
-.portfolio h3 { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #222; }
-.portfolio h2 + h3 { border-top: 0; padding-top: 0; margin-top: 1rem; }
-.portfolio h3:target { color: var(--accent); } /* arriving from a home-page project link */
+/* Work section on home: air + hairline between project entries. */
+.home h3 { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #222; }
+.home h2 + h3 { border-top: 0; padding-top: 0; margin-top: 1rem; }
+.home h3:target { color: var(--accent); } /* arriving from an old /portfolio/#project link */
 .portrait { width: 132px; height: 132px; image-rendering: pixelated; border: 1px solid #222; }
 
 /* Greentext ramp: brightens line by line, lands on the last. */

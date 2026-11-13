@@ -10,7 +10,7 @@ title: About
 
 The method is stubborn but simple: interfaces & observability. Before building on a system, Breexzed asks two questions of it: "How does this interface with that?" and "How do I observe this?" Mapping what goes in, what comes out, and how it fails turns a black box into something that can be rebuilt by hand. Watching it run settles what's actually true, with every claim checked against an outside judge: a test, a measurement, or the kernel's own counters. The work shows it: an HTTP server built up from raw TCP ([httpd-go](https://github.com/breexzed/httpd-go)), a process monitor read straight from `/proc` ([Pulsed](https://github.com/breexzed/pulsed)), and a tool that pulls a systemd service's memory and task counters from its cgroup ([svcstat](https://github.com/breexzed/svcstat)).
 
-Breexzed is currently on a [3-month open source software grant](/portfolio/#notable-things-i-ve-done) through the Open Research Institute. Everything learned along the way is written down here.
+Breexzed is currently on a [3-month open source software grant](/#notable-things-i-ve-done) through the Open Research Institute. Everything learned along the way is written down here.
 
 Interested in: Linux, eBPF, Go, containers, cloud, kernel-native infrastructure, memetics, decentralized and resilient communication, federated knowledge and collective intelligence, AI and human–machine coordination, software archaeology, electronics, writing, and the philosophy of self-knowledge.
 

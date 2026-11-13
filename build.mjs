@@ -39,7 +39,7 @@ const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;
 marked.use({
   renderer: {
     heading(text, level, raw) {
-      // `### Title {#id}` pins a stable id (used for links into the portfolio).
+      // `### Title {#id}` pins a stable id (used for links into the work section).
       const pinned = text.match(/\s*\{#([a-z0-9-]+)\}\s*$/);
       if (pinned) text = text.slice(0, pinned.index);
       const id = pinned ? pinned[1] : slugify(raw);
@@ -106,7 +106,6 @@ function page({ title, description, body, cls = '', rel = '', type = 'website', 
             <nav>
                 <a href="/">Home</a>
                 <a href="/writing/">Writing</a>
-                <a href="/portfolio/">Portfolio</a>
                 <a href="/about/">About</a>
             </nav>
         </header>
@@ -202,19 +201,32 @@ write('writing', page({
 }));
 
 // --- standalone pages -----------------------------------------------------
-// Projects: listed once, in portfolio.md frontmatter; home links into the portfolio entry.
-const portfolio = matter(fs.readFileSync(path.join(CONTENT, 'portfolio.md'), 'utf8')).data;
-const projects = portfolio.projects || [];
+// Home is the one page: voice, now, work, writing. The greentext lives in its frontmatter.
+const home = matter(fs.readFileSync(path.join(CONTENT, 'index.md'), 'utf8')).data;
 const vars = {
   latest_posts: listMd(topLevel.slice(0, 5)),
-  projects_list: projects.map((x) => `- **[${x.name}](/portfolio/#${x.id})** — ${x.summary}`).join('\n\n'),
   writing_list: topLevel.map((p) => `- [${p.data.title}](${url(p)})`).join('\n'),
+  greentext: `<div class="greentext">\n${(home.greentext || []).map((l) => `<span>&gt; ${l}</span>`).join('\n')}\n</div>\n`,
 };
-for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['portfolio.md', 'portfolio'], ['setup.md', 'setup']]) {
+for (const [file, rel] of [['index.md', ''], ['about.md', 'about'], ['setup.md', 'setup']]) {
   const { data, content } = matter(fs.readFileSync(path.join(CONTENT, file), 'utf8'));
   const md = content.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? `{{${k}}}`);
-  write(rel, page({ title: data.title, description: data.description, body: marked.parse(md), cls: rel || 'home', rel, card: rel === 'portfolio' ? '/assets/og/portfolio.png' : SITE.card }));
+  write(rel, page({ title: data.title, description: data.description, body: marked.parse(md), cls: rel || 'home', rel, card: SITE.card }));
 }
+
+// /portfolio/ was its own page until 2026-11-13; now it forwards to the home page's work section,
+// keeping the fragment, so shared links like /portfolio/#pulsed still land on Pulsed. Static, so
+// it works on every mirror (GitHub Pages, Codeberg), not just hosts with server redirects.
+fs.mkdirSync(path.join(OUT, 'portfolio'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'portfolio', 'index.html'), withBase(`<!doctype html>
+<meta charset="utf-8">
+<title>Moved to the home page</title>
+<link rel="canonical" href="${SITE.url}/#work">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${BASE}/#work">
+<script>location.replace('${BASE}/' + (location.hash || '#work'))</script>
+<p>The portfolio is now part of the <a href="/#work">home page</a>.</p>
+`));
 
 // 404 for static hosts (GitHub Pages / Vercel both pick up 404.html)
 fs.writeFileSync(path.join(OUT, '404.html'), withBase(versionAssets(page({
@@ -223,7 +235,7 @@ fs.writeFileSync(path.join(OUT, '404.html'), withBase(versionAssets(page({
 }))));
 
 // --- discovery files: sitemap, robots, llms ------------------------------
-const pages = ['', 'writing', 'portfolio', 'about', 'setup', ...posts.map((p) => `writing/${p.slug}`)];
+const pages = ['', 'writing', 'about', 'setup', ...posts.map((p) => `writing/${p.slug}`)];
 const lastmod = (rel) => {
   const p = posts.find((x) => `writing/${x.slug}` === rel);
   return p?.date || topLevel.map((x) => x.date).sort().at(-1);
@@ -239,7 +251,7 @@ fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitem
 const postLine = (p) => `- [${p.data.title}](${SITE.url}${url(p)}): ${p.data.excerpt ? summarize(p.data.excerpt) : summarize(p.content)}`;
 fs.writeFileSync(path.join(OUT, 'llms.txt'), `# ${SITE.name}
 
-> ${SITE.tagline} Personal site: writing, build logs, and a portfolio. Static HTML, one page per post.
+> ${SITE.tagline} Personal site: writing, build logs, and work. Static HTML, one page per post.
 
 ## Writing
 
@@ -247,7 +259,7 @@ ${topLevel.flatMap((p) => [postLine(p), ...childrenOf(p).map((k) => '  ' + postL
 
 ## Pages
 
-- [Portfolio](${SITE.url}/portfolio/): current and selected work, skills, links
+- [Home](${SITE.url}/): who I am, what I'm doing now, work (with evidence), skills, latest writing, contact
 - [About](${SITE.url}/about/): whoami
 - [Full text of all posts](${SITE.url}/llms-full.txt)
 `);
@@ -269,8 +281,9 @@ for (const [src, dest] of redirects) {
   if (!src.endsWith('/') && !/\.[a-z]+$/.test(src)) problems.push(`vercel.json: source ${src} needs a trailing slash (trailingSlash:true)`);
   if (!exists(dest)) problems.push(`vercel.json: ${src} -> ${dest}, which is not in dist/`);
 }
-const builtPortfolio = fs.readFileSync(path.join(OUT, 'portfolio', 'index.html'), 'utf8');
-for (const x of projects) if (!builtPortfolio.includes(`id="${x.id}"`)) problems.push(`portfolio.md: project "${x.name}" links to #${x.id}, but no heading has {#${x.id}}`);
+const builtHome = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
+for (const id of ['work', 'pulsed', 'svcstat', 'httpd-go', 'wtp', 'notable-things-i-ve-done'])
+  if (!builtHome.includes(`id="${id}"`)) problems.push(`index.md: old links point at #${id}, but no heading has that id`);
 if (problems.length) { console.error('build check failed:\n  ' + problems.join('\n  ')); process.exit(1); }
 
-console.log(`built ${posts.length} writing pages + archive + home/about/portfolio/404 + sitemap/robots/llms -> ${path.relative(process.cwd(), OUT) || OUT}; ${redirects.size} redirects checked`);
+console.log(`built ${posts.length} writing pages + archive + home/about/portfolio-forward/404 + sitemap/robots/llms -> ${path.relative(process.cwd(), OUT) || OUT}; ${redirects.size} redirects checked`);
