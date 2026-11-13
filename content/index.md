@@ -20,6 +20,8 @@ greentext:
 <img class="portrait" src="/assets/portrait.webp" alt="Breexzed portrait" width="132" height="132">
 
 {{greentext}}
+And unlike many where I'm from, as an African I believe Africa will become motherland once again, for every one of us, most especially for you and me.
+
 I love Linux, music, and the gym in roughly that order. I'm currently building foundations in Linux systems and observability, with the long-term goal of working on programmable, kernel-native infrastructure. I enjoy writing programs that watch the machine run from the inside, and rebuilding the amazing technologies I find on the way.
 
 I'm also fascinated by the idea of [memetics](https://en.wikipedia.org/wiki/Memetics) (pun intended), and I love geeking out about it with the folks at [ORI](https://openresearchinstitute.org/) & [Ark Industries](https://shaneandersen.com/). I keep a lab for **archaeomemetics**: digging up ideas that have stopped spreading, since a dead meme is the only kind you can study without spreading it again. Some of my writing on this is [here](/writing/hyperbolic-meme-chambers/).
