@@ -20,13 +20,15 @@ greentext:
 <img class="portrait" src="/assets/portrait.webp" alt="Breexzed portrait" width="132" height="132">
 
 {{greentext}}
-I love Linux, music, and the gym in roughly that order. I'm currently building foundations in Linux systems and observability, with the long-term goal of working on programmable, kernel-native infrastructure.
+I love Linux, music, and the gym in roughly that order. I'm currently building foundations in Linux systems and observability, with the long-term goal of working on programmable, kernel-native infrastructure. I enjoy writing programs that watch the machine run from the inside, and rebuilding the amazing technologies I find on the way.
+
+I'm also fascinated by the idea of [memetics](https://en.wikipedia.org/wiki/Memetics) (pun intended), and I love geeking out about it with the folks at [ORI](https://openresearchinstitute.org/) & [Ark Industries](https://shaneandersen.com/). I keep a lab for **archaeomemetics**: digging up ideas that have stopped spreading, since a dead meme is the only kind you can study without spreading it again. Some of my writing on this is [here](/writing/hyperbolic-meme-chambers/).
 
 [More about me, and what I'm interested in →](/about/) · [My Linux setup →](/setup/)
 
 ## What I'm Up To Now
 
-- **Home labbing** with KVM, libvirt, QEMU, LXD and MAAS, learning Linux internals along the way and documenting the interfaces I run into and what working with them was like. I enjoy writing programs that watch the machine run from the inside, and rebuilding the amazing technologies I find on the way.
+- **Home labbing** with KVM, libvirt, QEMU, LXD and MAAS, learning Linux internals along the way and documenting the interfaces I run into and what working with them was like.
 
 - **Learning [Freenet](https://freenet.org/)**, to build a federated knowledge system for a [research institute](/#notable-things-i-ve-done).
 

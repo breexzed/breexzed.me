@@ -65,3 +65,12 @@ h3 em { font-weight: normal; color: #888; }
 /* Off-mainstream contacts: present, linkable, deliberately quiet. */
 .elsewhere { font-size: .85em; opacity: .55; }
 .elsewhere:hover, .elsewhere:focus-within { opacity: 1; }
+
+/* Phones: smaller type and list indent. Last in the file so it overrides the desktop sizes above. */
+@media (max-width: 600px) {
+    body { font-size: 16px; line-height: 1.55; }
+    header h1 { font-size: 34px; }
+    main h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    ul, ol { padding-left: 1.25rem; }
+}
