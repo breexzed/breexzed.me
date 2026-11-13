@@ -20,7 +20,7 @@ greentext:
 <img class="portrait" src="/assets/portrait.webp" alt="Breexzed portrait" width="132" height="132">
 
 {{greentext}}
-I love Linux, music, and the gym in roughly that order.
+I love Linux, music, and the gym in roughly that order. I'm currently building foundations in Linux systems and observability, with the long-term goal of working on programmable, kernel-native infrastructure.
 
 [More about me, and what I'm interested in →](/about/) · [My Linux setup →](/setup/)
 
