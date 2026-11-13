@@ -4,114 +4,27 @@
   "framework": null,
   "trailingSlash": true,
   "redirects": [
-    {
-      "source": "/node/root/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/node/the_gap/",
-      "destination": "/writing/the-gap/",
-      "permanent": true
-    },
-    {
-      "source": "/node/on_learning_and_finding_the_right_information_to_learn_from/",
-      "destination": "/writing/on-learning/",
-      "permanent": true
-    },
-    {
-      "source": "/node/building_an_http_server_from_scratch/",
-      "destination": "/writing/http-server-from-scratch/",
-      "permanent": true
-    },
-    {
-      "source": "/node/stage_01_http_server/",
-      "destination": "/writing/http-server-stage-01/",
-      "permanent": true
-    },
-    {
-      "source": "/node/:rest*/",
-      "destination": "/writing/",
-      "permanent": true
-    },
-    {
-      "source": "/whoami/",
-      "destination": "/about/",
-      "permanent": true
-    },
-    {
-      "source": "/corpus/",
-      "destination": "/writing/",
-      "permanent": true
-    },
-    {
-      "source": "/concepts/",
-      "destination": "/writing/",
-      "permanent": true
-    },
-    {
-      "source": "/logic/",
-      "destination": "/writing/",
-      "permanent": true
-    },
-    {
-      "source": "/projects/",
-      "destination": "/portfolio/",
-      "permanent": true
-    },
-    {
-      "source": "/stack/",
-      "destination": "/portfolio/",
-      "permanent": true
-    },
-    {
-      "source": "/signals/",
-      "destination": "/about/#sections",
-      "permanent": true
-    },
-    {
-      "source": "/map/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio.html",
-      "destination": "/portfolio/",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio/",
-      "destination": "/",
-      "permanent": true
-    }
+    { "source": "/node/root/", "destination": "/", "permanent": true },
+    { "source": "/node/the_gap/", "destination": "/writing/the-gap/", "permanent": true },
+    { "source": "/node/on_learning_and_finding_the_right_information_to_learn_from/", "destination": "/writing/on-learning/", "permanent": true },
+    { "source": "/node/building_an_http_server_from_scratch/", "destination": "/writing/http-server-from-scratch/", "permanent": true },
+    { "source": "/node/stage_01_http_server/", "destination": "/writing/http-server-stage-01/", "permanent": true },
+    { "source": "/node/:rest*/", "destination": "/writing/", "permanent": true },
+
+    { "source": "/whoami/", "destination": "/about/", "permanent": true },
+    { "source": "/corpus/", "destination": "/writing/", "permanent": true },
+    { "source": "/concepts/", "destination": "/writing/", "permanent": true },
+    { "source": "/logic/", "destination": "/writing/", "permanent": true },
+    { "source": "/projects/", "destination": "/portfolio/", "permanent": true },
+    { "source": "/stack/", "destination": "/portfolio/", "permanent": true },
+    { "source": "/signals/", "destination": "/about/#sections", "permanent": true },
+    { "source": "/map/", "destination": "/", "permanent": true },
+    { "source": "/portfolio.html", "destination": "/portfolio/", "permanent": true }
   ],
   "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/fonts/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/favicon.png",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/favicon.png", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/portfolio/", "destination": "/", "permanent": true }
   ]
 }
