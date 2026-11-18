@@ -47,9 +47,9 @@ ORI says we are all already deciding what humanity knows, one share, one scroll 
 
 ORI is an effort to map the selective filters we apply, and the ones platforms apply for us, as we come to know ourselves as a collective. ORI is an effort to bring humanity's self-knowledge into being. ORI studies [hyperbolic meme chambers](#g-hyperbolic-meme-chamber). ORI is a hyperbolic meme chamber you can look into.
 
-Finding ways to resolve the friction between our biological need to filter reality and our collective need for shared state to coordinate is one of the missions of ORI. A few days ago, ORI, in conjunction with [ARK Industries](https://shaneandersen.com/), gave me an opportunity: I was tasked with building the [prototype](https://github.com/Open-Research-Institute/nooscope) for ORI's [observability layer](#g-observability-layer). The goal is to give humanity the equivalent of a network debugger for collective attention, laying the foundation for a category of tooling capable of probing collective surfaces for bad-faith [Human Mnemones](#g-human-mnemone).
+Finding ways to resolve the friction between our biological need to filter reality and our collective need for shared state to coordinate is one of the missions of ORI. The goal of ORI's [observability layer](#g-observability-layer) is to give humanity the equivalent of a network debugger for collective attention, laying the foundation for a category of tooling capable of probing collective surfaces for bad-faith [Human Mnemones](#g-human-mnemone).
 
-In my essay [Hyperbolic Meme Chambers](/writing/hyperbolic-meme-chambers/), I wrote that chambers select for what spreads. If memeability decides what survives, whoever owns the chamber owns the outcome. Freenet was rebuilt so that nobody does. Because spreading is not judgment. And so I decided to build ORI's observability stack on top of it.
+In my essay [Hyperbolic Meme Chambers](/writing/hyperbolic-meme-chambers/), I wrote that chambers select for what spreads. If memeability decides what survives, whoever owns the chamber owns the outcome. Freenet was rebuilt so that nobody does. Because spreading is not judgment.
 
 ## Freenet, Rebuilt
 
@@ -60,6 +60,10 @@ Every human mind is a local [replica](#g-replica), running its own selective fil
 It reminds me of the last paragraph on the [Open Research Institute's website](https://openresearchinstitute.org/):
 
 > "Welcome to ORI. We're co-workers in this shared landscape, whether we like it or not. Let's see if we can make this place a little better than how we found it 🌷 💐 🌻"
+
+Here's how it fits together for me: ORI wants to look into the chambers, the places our attention passes through: a Twitter timeline, the Hacker News front page, a group chat. Looking in means collecting what moves through them and counting it: which words, phrases and links are spreading, and later, which ones stop and whether they ever come back. Freenet is a chamber nobody owns. An observatory belongs on ground like that.
+
+So I'm starting where I can: writing a collector for ORI's [observability prototype](https://github.com/Open-Research-Institute/nooscope), and mapping what it would take for it to run on Freenet.
 
 We are all Human Mnemones. It's time we looked into the chamber.
 
